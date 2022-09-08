@@ -6,4 +6,4 @@ La macro SAS CALMAR (CALage sur MARges) permet de redresser un échantillon prov
 
 Cette méthode de redressement permet de réduire la variance d'échantillonnage, et, dans certains cas, de réduire le biais dû à la non réponse totale. 
 
-Les macros SAS compilées pour différentes versions de SAS sont disponibles sur le [site de l'Insee](https://www.insee.fr/fr/information/2021902).
+La macro SAS CALMAR est disponible sous forme compilée pour différentes versions de SAS sur le [site de l'Insee](https://www.insee.fr/fr/information/2021902).
