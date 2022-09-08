@@ -1,42 +1,42 @@
 %MACRO CALMAR (
-DATA      =       , /* Table SAS en entrÃ©e                                    */
-M         = 1     , /* MÃ©thode utilisÃ©e                                       */
-POIDS     =       , /* PondÃ©ration initiale (poids de sondage Dk)             */
-POIDSFIN  =       , /* PondÃ©ration finale   (poids de calage Wk)              */
-PONDQK    = __UN  , /* PondÃ©ration Qk                                         */
-LABELPOI  =       , /* Label de la pondÃ©ration finale                         */
-DATAPOI   =       , /* Table contenant la pondÃ©ration finale                  */
-MISAJOUR  =  OUI  , /* Mise Ã  jour de la table &DATAPOI si elle existe dÃ©jÃ    */
-CONTPOI   =  OUI  , /* Contenu de la table prÃ©cedente                         */
-LO        =       , /* Borne infÃ©rieure (mÃ©thode logit ou linÃ©aire tronquÃ©e)  */
-UP        =       , /* Borne supÃ©rieure (mÃ©thode logit ou linÃ©aire tronquÃ©e)  */
+DATA      =       , /* Table SAS en entrée                                    */
+M         = 1     , /* Méthode utilisée                                       */
+POIDS     =       , /* Pondération initiale (poids de sondage Dk)             */
+POIDSFIN  =       , /* Pondération finale   (poids de calage Wk)              */
+PONDQK    = __UN  , /* Pondération Qk                                         */
+LABELPOI  =       , /* Label de la pondération finale                         */
+DATAPOI   =       , /* Table contenant la pondération finale                  */
+MISAJOUR  =  OUI  , /* Mise à jour de la table &DATAPOI si elle existe déjà   */
+CONTPOI   =  OUI  , /* Contenu de la table précedente                         */
+LO        =       , /* Borne inférieure (méthode logit ou linéaire tronquée)  */
+UP        =       , /* Borne supérieure (méthode logit ou linéaire tronquée)  */
 EDITPOI   =  NON  , /* Edition des poids par combinaison de valeurs           */
 STAT      =  OUI  , /* Statistiques sur les poids                             */
-OBSELI    =  NON  , /* Stockage des observations Ã©liminÃ©es dans une table     */
+OBSELI    =  NON  , /* Stockage des observations éliminées dans une table     */
 IDENT     =       , /* Identifiant des observations                           */
 DATAMAR   =       , /* Table SAS contenant les marges des variables de calage */
 PCT       =  NON  , /* PCT = OUI si les marges sont en pourcentages           */
 EFFPOP    =       , /* Effectif de la population (si PCT = OUI)               */
-CONT      =  OUI  , /* Si CONT = OUI des controles sont effectuÃ©s             */
-MAXITER   =   15  , /* Nombre maximum d'itÃ©rations                            */
-NOTES     =  NON  , /* par dÃ©faut : options NONOTES                           */
+CONT      =  OUI  , /* Si CONT = OUI des controles sont effectués             */
+MAXITER   =   15  , /* Nombre maximum d'itérations                            */
+NOTES     =  NON  , /* par défaut : options NONOTES                           */
 SEUIL     = 0.0001  /* Seuil pour le test d'arret                             */
 )/store;
 /*********************************************************************************/
-/* La version du 10/09/2009 accepte plus de 999 variables de calage numÃ©riques   */ 
-/* (jusqu'Ã  9999).                                                               */ 
+/* La version du 10/09/2009 accepte plus de 999 variables de calage numériques   */ 
+/* (jusqu'à 9999).                                                               */ 
 /*********************************************************************************/
-/* La version du 21/12/2006 accepte plus de 999 modalitÃ©s pour les variables     */
-/* de calage catÃ©gorielles (jusqu'Ã  9999).                                       */ 
+/* La version du 21/12/2006 accepte plus de 999 modalités pour les variables     */
+/* de calage catégorielles (jusqu'à 9999).                                       */ 
 /*********************************************************************************/
-/* La version du 11/08/2006 accepte plus de 99 variables de calage catÃ©gorielles */ 
-/* et plus de 99 variables de calage numÃ©riques (jusqu'Ã  999).                   */ 
+/* La version du 11/08/2006 accepte plus de 99 variables de calage catégorielles */ 
+/* et plus de 99 variables de calage numériques (jusqu'à 999).                   */ 
 /*********************************************************************************/
 
 %put ;                                                                                          
 %put ***************************************************; 
 %put ** macro CALMAR : Version du 16/06/2015          **;
-%put ** (pour calages sur 9999 variables numÃ©riques)  **;
+%put ** (pour calages sur 9999 variables numériques)  **;
 %put ***************************************************;
 %put ;
 %put ; 
@@ -53,8 +53,8 @@ SEUIL     = 0.0001  /* Seuil pour le test d'arret                             */
 
    /******************************************************************
     ***  La macro NOBS permet d'affecter le nombre d'observations  ***
-    ***  d'une table SAS &DATA Ã  la macro-variable &NOMVAR         ***
-    ***  (Ã  condition que le paramÃ¨tre &DATA ne contienne pas      ***
+    ***  d'une table SAS &DATA à la macro-variable &NOMVAR         ***
+    ***  (à condition que le paramètre &DATA ne contienne pas      ***
     ***   les conditions FIRSTOBS, OBS ou WHERE)                   ***
     ******************************************************************/
 
@@ -87,39 +87,39 @@ run;
 %mend existe;
 
    /********************************************
-    ***  Edition des paramÃ¨tres de la macro  ***
+    ***  Edition des paramètres de la macro  ***
     ********************************************/
 
 DATA _NULL_;
   file print;
   put //@28 "**********************************";
-  put   @28 "***   ParamÃ¨tres de la macro   ***";
+  put   @28 "***   Paramètres de la macro   ***";
   put   @28 "**********************************";
-  put //@2 "Table en entrÃ©e                     DATA      =  %upcase(&data)";
-  put   @2 " PondÃ©ration initiale               POIDS     =  %upcase(&poids)";
-  put   @2 " PondÃ©ration Qk                     PONDQK    =  %upcase(&pondqk)";
+  put //@2 "Table en entrée                     DATA      =  %upcase(&data)";
+  put   @2 " Pondération initiale               POIDS     =  %upcase(&poids)";
+  put   @2 " Pondération Qk                     PONDQK    =  %upcase(&pondqk)";
   put   @2 " Identifiant                        IDENT     =  %upcase(&ident)";
   put  /@2 "Table des marges                    DATAMAR   =  %upcase(&datamar)";
   put   @2 " Marges en pourcentages             PCT       =  %upcase(&pct)";
   put   @2 " Effectif de la population          EFFPOP    =  &effpop";
-  put  /@2 "MÃ©thode utilisÃ©e                    M         =  &m";
-  put   @2 " Borne infÃ©rieure                   LO        =  &lo";
-  put   @2 " Borne supÃ©rieure                   UP        =  &up";
-  put   @2 " Seuil d'arrÃªt                      SEUIL     =  &seuil";
-  put   @2 " Nombre maximum d'itÃ©rations        MAXITER   =  &maxiter";
+  put  /@2 "Méthode utilisée                    M         =  &m";
+  put   @2 " Borne inférieure                   LO        =  &lo";
+  put   @2 " Borne supérieure                   UP        =  &up";
+  put   @2 " Seuil d'arrêt                      SEUIL     =  &seuil";
+  put   @2 " Nombre maximum d'itérations        MAXITER   =  &maxiter";
   put  /@2 "Table contenant la pond. finale     DATAPOI   =  %upcase(&datapoi)";
-  put  @2 " Mise Ã  jour de la table DATAPOI    MISAJOUR  =  %upcase(&misajour)";
-  put  @2 " PondÃ©ration finale                 POIDSFIN  =  %upcase(&poidsfin)";
-  put   @2 " Label de la pondÃ©ration finale     LABELPOI  =  &labelpoi";
+  put  @2 " Mise à jour de la table DATAPOI    MISAJOUR  =  %upcase(&misajour)";
+  put  @2 " Pondération finale                 POIDSFIN  =  %upcase(&poidsfin)";
+  put   @2 " Label de la pondération finale     LABELPOI  =  &labelpoi";
   put   @2 " Contenu de la table DATAPOI        CONTPOI   =  %upcase(&contpoi)";
   put  /@2 "Edition des poids                   EDITPOI   =  %upcase(&editpoi)";
   put   @2 " Statistiques sur les poids         STAT      =  %upcase(&stat)";
-  put  /@2 "ContrÃ´les                           CONT      =  %upcase(&cont)";
-  put   @2 "Table contenant les obs. Ã©liminÃ©es  OBSELI    =  %upcase(&obseli)";
+  put  /@2 "Contrôles                           CONT      =  %upcase(&cont)";
+  put   @2 "Table contenant les obs. éliminées  OBSELI    =  %upcase(&obseli)";
   put   @2 "Notes SAS                           NOTES     =  %upcase(&notes)";
 
    /*************************************************************************
-    ***  Controles lorsque l'on veut conserver les pondÃ©rations finales   ***
+    ***  Controles lorsque l'on veut conserver les pondérations finales   ***
     *************************************************************************/
 
 %if %scan(&datapoi,1) ne %then
@@ -130,9 +130,9 @@ DATA _NULL_;
     DATA _NULL_;
       file print;
       put //@2 66*"*";
-      put @2 "***   ERREUR : le paramÃ¨tre POIDSFIN n'est pas renseignÃ©"
+      put @2 "***   ERREUR : le paramètre POIDSFIN n'est pas renseigné"
           @65"***";
-      put @2 "***            alors que le paramÃ¨tre DATAPOI"
+      put @2 "***            alors que le paramètre DATAPOI"
              " vaut %upcase(&DATAPOI)" @65 "***";
       put @2 66*"*";
     %goto FIN;
@@ -155,9 +155,9 @@ DATA _NULL_;
         file print;
         put //@2 "*************************************************************"
                  "*******";
-        put @2 "***   ERREUR : le paramÃ¨tre DATAPOI vaut %upcase(&datapoi),"
+        put @2 "***   ERREUR : le paramètre DATAPOI vaut %upcase(&datapoi),"
                " mais"  @67 "***";
-        put @2 "***            aucune base n'est allouÃ©e au DDNAME"
+        put @2 "***            aucune base n'est allouée au DDNAME"
                " %upcase(&base)"
             @67 "***";
         put @2 "**************************************************************"
@@ -172,9 +172,9 @@ DATA _NULL_;
       %if &syserr ne 0 %then
       %do;
         %put %str( ********************************************************);
-        %put %str( ***   ERREUR : pas d%'accÃ¨s en Ã©criture sur la base ) ;
-        %put %str( ***            allouÃ©e au DDNAME %upcase(&base) )      ;
-        %put %str( ***            spÃ©cifiÃ© dans le paramÃ¨tre DATAPOI ) ;
+        %put %str( ***   ERREUR : pas d%'accès en écriture sur la base ) ;
+        %put %str( ***            allouée au DDNAME %upcase(&base) )      ;
+        %put %str( ***            spécifié dans le paramètre DATAPOI ) ;
         %put %str( ********************************************************);
         %goto FIN;
       %end;
@@ -188,23 +188,23 @@ DATA _NULL_;
   %end;
 %end;
 
-   /*   Fin des contrÃ´les   */
+   /*   Fin des contrôles   */
 
    /*************************************************************************
-    ***  Premiers controles (facultatifs) sur les paramÃ¨tres de la macro  ***
+    ***  Premiers controles (facultatifs) sur les paramètres de la macro  ***
     *************************************************************************/
 
 %if %upcase(&cont)=OUI %then
 %do;
 
-   /*  Controles sur le paramÃ¨tre DATA  */
+   /*  Controles sur le paramètre DATA  */
 
   %if %scan(&data,1)= %then
   %do;
     DATA _NULL_;
       file print;
       put //@2 "**********************************************************";
-      put   @2 "***   ERREUR : le paramÃ¨tre DATA n'est pas renseignÃ©   ***";
+      put   @2 "***   ERREUR : le paramètre DATA n'est pas renseigné   ***";
       put   @2 "**********************************************************";
     %goto FIN;
   %end;
@@ -218,7 +218,7 @@ DATA _NULL_;
         file print;
         put //@2 74*"*";
         put @2 "***   ERREUR : la table %upcase (&data)"  @73 "***";
-        put @2 "***            spÃ©cifiÃ©e dans le paramÃ¨tre DATA n'existe pas"
+        put @2 "***            spécifiée dans le paramètre DATA n'existe pas"
             @73 "***";
         put @2 74*"*";
       %goto FIN;
@@ -229,9 +229,9 @@ DATA _NULL_;
 
 %end;
 
-   /*   Fin des premiers contrÃ´les facultatifs   */
+   /*   Fin des premiers contrôles facultatifs   */
 
-   /*   La PROC CONTENTS sera utilisÃ©e dans les contrÃ´les facultatifs
+   /*   La PROC CONTENTS sera utilisée dans les contrôles facultatifs
         et au moment de la lecture de la table DATAMAR                  */
 
   PROC CONTENTS noprint data=%scan(&DATA,1,'(')
@@ -250,20 +250,20 @@ var=upcase(var);
     by var;
 
    /**************************************************************************
-    ***  Suite des controles (facultatifs) sur les paramÃ¨tres de la macro  ***
+    ***  Suite des controles (facultatifs) sur les paramètres de la macro  ***
     *************************************************************************/
 
 %if %upcase(&cont)=OUI %then
 %do;
 
-   /*  Controles sur le paramÃ¨tre DATAMAR  */
+   /*  Controles sur le paramètre DATAMAR  */
 
   %if %scan(&datamar,1)= %then
   %do;
     DATA _NULL_;
       file print;
       put //@2 "*************************************************************";
-      put   @2 "***   ERREUR : le paramÃ¨tre DATAMAR n'est pas renseignÃ©   ***";
+      put   @2 "***   ERREUR : le paramètre DATAMAR n'est pas renseigné   ***";
       put   @2 "*************************************************************";
     %goto FIN;
   %end;
@@ -277,22 +277,22 @@ var=upcase(var);
       file print;
       put //@2 74*"*";
       put   @2 "***   ERREUR : la table %upcase (&datamar)" @73 "***";
-      put   @2 "***            spÃ©cifiÃ©e dans le paramÃ¨tre DATAMAR n'existe pas"
+      put   @2 "***            spécifiée dans le paramètre DATAMAR n'existe pas"
             @73 "***";
       put   @2 74*"*";
       %goto FIN;
     %end;
   %end;
 
-   /*  Controles sur le paramÃ¨tre M  */
+   /*  Controles sur le paramètre M  */
 
   %if &m ne 1 and &m ne 2 and &m ne 3 and &m ne 4 %then
   %do;
     DATA _NULL_;
       file print;
       put //@2 "***************************************************";
-      put   @2 "***   ERREUR : la valeur du paramÃ¨tre M (&m)    ***";
-      put   @2 "***            est diffÃ©rente de 1, 2, 3 et 4   ***";
+      put   @2 "***   ERREUR : la valeur du paramètre M (&m)    ***";
+      put   @2 "***            est différente de 1, 2, 3 et 4   ***";
       put   @2 "***************************************************";
     %goto FIN;
   %end;
@@ -302,8 +302,8 @@ var=upcase(var);
     DATA _NULL_;
       file print;
       put //@2 "***********************************************************";
-      put   @2 "***   ERREUR : le paramÃ¨tre M vaut (&m)                 ***";
-      put   @2 "***            et le paramÃ¨tre LO n'est pas renseignÃ©   ***";
+      put   @2 "***   ERREUR : le paramètre M vaut (&m)                 ***";
+      put   @2 "***            et le paramètre LO n'est pas renseigné   ***";
       put   @2 "***********************************************************";
     %goto FIN;
   %end;
@@ -313,22 +313,22 @@ var=upcase(var);
     DATA _NULL_;
       file print;
       put //@2 "***********************************************************";
-      put   @2 "***   ERREUR : le paramÃ¨tre M vaut (&m)                 ***";
-      put   @2 "***            et le paramÃ¨tre UP n'est pas renseignÃ©   ***";
+      put   @2 "***   ERREUR : le paramètre M vaut (&m)                 ***";
+      put   @2 "***            et le paramètre UP n'est pas renseigné   ***";
       put   @2 "***********************************************************";
     %goto FIN;
   %end;
 
-   /*  Controle sur le paramÃ¨tre EFFPOP  */
+   /*  Controle sur le paramètre EFFPOP  */
 
   %if &effpop = and %upcase(&pct)=OUI %then
   %do;
     DATA _NULL_;
       file print;
       put //@2 "*************************************************************";
-      put   @2 "***   ERREUR : le paramÃ¨tre EFFPOP n'est pas renseignÃ©    ***";
-      put   @2 "***            alors que les marges sont donnÃ©es en       ***";
-      put   @2 "***            pourcentages (le paramÃ¨tre PCT vaut OUI)   ***";
+      put   @2 "***   ERREUR : le paramètre EFFPOP n'est pas renseigné    ***";
+      put   @2 "***            alors que les marges sont données en       ***";
+      put   @2 "***            pourcentages (le paramètre PCT vaut OUI)   ***";
       put   @2 "*************************************************************";
     %goto FIN;
   %end;
@@ -350,9 +350,9 @@ var=upcase(var);
       DATA _NULL_;
         file print;
           put //@2 74*"*";
-          put @2 "***   ERREUR : la variable %upcase(&poids) spÃ©cifiÃ©e dans le"
+          put @2 "***   ERREUR : la variable %upcase(&poids) spécifiée dans le"
               @73 "***";
-          put @2 "***            paramÃ¨tre POIDS ne figure pas dans"  @73 "***";
+          put @2 "***            paramètre POIDS ne figure pas dans"  @73 "***";
           put @2 "***            la table %upcase(&data)" @73 "***";
           put @2 74*"*";
       %goto FIN;
@@ -363,11 +363,11 @@ var=upcase(var);
       DATA _NULL_;
         file print;
         put //@2 74*"*";
-        put @2 "***   ERREUR : la variable %upcase(&poids) spÃ©cifiÃ©e dans le"
-               " paramÃ¨tre POIDS" @73 "***";
+        put @2 "***   ERREUR : la variable %upcase(&poids) spécifiée dans le"
+               " paramètre POIDS" @73 "***";
         put @2 "***            et figurant dans la"                 @73 "***";
         put @2 "***            table %upcase(&data)"                @73 "***";
-        put @2 "***            n'est pas numÃ©rique"                 @73 "***";
+        put @2 "***            n'est pas numérique"                 @73 "***";
         put @2 74*"*";
       %goto FIN;
     %end;
@@ -388,9 +388,9 @@ var=upcase(var);
       DATA _NULL_;
         file print;
           put //@2 74*"*";
-          put @2 "***   ERREUR : la variable %upcase(&pondqk) spÃ©cifiÃ©e dans le"
+          put @2 "***   ERREUR : la variable %upcase(&pondqk) spécifiée dans le"
               @73 "***";
-          put @2 "***            paramÃ¨tre PONDQK ne figure pas dans" @73 "***";
+          put @2 "***            paramètre PONDQK ne figure pas dans" @73 "***";
           put @2 "***            la table %upcase(&data)" @73 "***";
           put @2 74*"*";
       %goto FIN;
@@ -401,11 +401,11 @@ var=upcase(var);
       DATA _NULL_;
         file print;
         put //@2 74*"*";
-        put @2 "***   ERREUR : la variable %upcase(&pondqk) spÃ©cifiÃ©e dans"
-               " le paramÃ¨tre PONDQK"  @73 "***";
+        put @2 "***   ERREUR : la variable %upcase(&pondqk) spécifiée dans"
+               " le paramètre PONDQK"  @73 "***";
         put @2 "***            et figurant dans la"                 @73 "***";
         put @2 "***            table %upcase(&data)"                @73 "***";
-        put @2 "***            n'est pas numÃ©rique"                 @73 "***";
+        put @2 "***            n'est pas numérique"                 @73 "***";
         put @2 74*"*";
       %goto FIN;
     %end;
@@ -424,9 +424,9 @@ var=upcase(var);
       DATA _NULL_;
         file print;
           put //@2 74*"*";
-          put @2 "***   ERREUR : la variable %upcase(&ident) spÃ©cifiÃ©e dans le"
+          put @2 "***   ERREUR : la variable %upcase(&ident) spécifiée dans le"
               @73 "***";
-          put @2 "***            paramÃ¨tre IDENT ne figure pas dans"  @73 "***";
+          put @2 "***            paramètre IDENT ne figure pas dans"  @73 "***";
           put @2 "***            la table %upcase(&data)" @73 "***";
           put @2 74*"*";
       %goto FIN;
@@ -450,7 +450,7 @@ var=upcase(var);
         put //@2 74*"*";
         put @2 "***   ERREUR : la variable VAR ne figure pas dans la" @73 "***";
         put @2 "***            table %upcase(&datamar)"               @73 "***";
-        put @2 "***            spÃ©cifiÃ©e dans le paramÃ¨tre DATAMAR"   @73 "***";
+        put @2 "***            spécifiée dans le paramètre DATAMAR"   @73 "***";
         put @2 74*"*";
     %goto FIN;
   %end;
@@ -468,7 +468,7 @@ var=upcase(var);
       put //@2 74*"*";
       put @2 "***   ERREUR : la variable N ne figure pas dans la" @73 "***";
       put @2 "***            table %upcase(&datamar)"             @73 "***";
-      put @2 "***            spÃ©cifiÃ©e dans le paramÃ¨tre DATAMAR" @73 "***";
+      put @2 "***            spécifiée dans le paramètre DATAMAR" @73 "***";
       put @2 74*"*";
     %goto FIN;
   %end;
@@ -480,7 +480,7 @@ var=upcase(var);
       put //@2 74*"*";
       put @2 "***   ERREUR : la variable N figurant dans la"      @73 "***";
       put @2 "***            table %upcase(&datamar)"             @73 "***";
-      put @2 "***            n'est pas numÃ©rique"                 @73 "***";
+      put @2 "***            n'est pas numérique"                 @73 "***";
       put @2 74*"*";
     %goto FIN;
   %end;
@@ -508,9 +508,9 @@ var=upcase(var);
       title4 "ERREUR : les variables suivantes, dont les noms figurent dans la"
              " variable VAR";
       title5 "de la table %upcase(&datamar)";
-      title6 "spÃ©cifiÃ©e dans le paramÃ¨tre DATAMAR, n'existent pas";
+      title6 "spécifiée dans le paramètre DATAMAR, n'existent pas";
       title7 "dans la table %upcase(&data)";
-      title8 "spÃ©cifiÃ©e dans le paramÃ¨tre DATA";
+      title8 "spécifiée dans le paramètre DATA";
     run;
     %goto FIN;
   %end;
@@ -521,13 +521,13 @@ var=upcase(var);
     %do;
       PROC PRINT data=__NUMCAR(drop=type n);
         id var;
-        title4 "ERREUR : les variables suivantes sont dÃ©clarÃ©es comme"
-               " numÃ©riques (N=0)";
+        title4 "ERREUR : les variables suivantes sont déclarées comme"
+               " numériques (N=0)";
         title5 "de la table %upcase(&datamar)";
-        title6 "spÃ©cifiÃ©e dans le paramÃ¨tre DATAMAR,";
-        title7 "alors que ce sont des variables caractÃ¨res";
+        title6 "spécifiée dans le paramètre DATAMAR,";
+        title7 "alors que ce sont des variables caractères";
         title8 "dans la table %upcase(&data)";
-        title9 "spÃ©cifiÃ©e dans le paramÃ¨tre DATA";
+        title9 "spécifiée dans le paramètre DATA";
        run;
       %goto FIN;
     %end;
@@ -549,7 +549,7 @@ var=upcase(var);
 %let arret=0;
 %let maxit=0;
 
-   /*  DÃ©termination du nombre maximum de modalitÃ©s  */
+   /*  Détermination du nombre maximum de modalités  */
 
 PROC MEANS noprint data=&DATAMAR;
   var n;
@@ -579,11 +579,11 @@ run;
     DATA _NULL_;
       file print;
       put //@2 74*"*";
-      put @2 "***   ERREUR : une (au moins) des variables MAR1 Ã  MAR&nmax"
+      put @2 "***   ERREUR : une (au moins) des variables MAR1 à MAR&nmax"
              " ne figure pas"                                         @73 "***";
       put @2 "***            dans la table %upcase(&datamar)"         @73 "***";
-      put @2 "***            spÃ©cifiÃ©e dans le paramÃ¨tre DATAMAR"     @73 "***";
-      put @2 "***            (&nmax est le nombre maximum de modalitÃ©s spÃ©cifiÃ©"
+      put @2 "***            spécifiée dans le paramètre DATAMAR"     @73 "***";
+      put @2 "***            (&nmax est le nombre maximum de modalités spécifié"
           @73 "***";
       put @2 "***             dans cette table)"  @73 "***";
       put @2 74*"*";
@@ -599,10 +599,10 @@ run;
     DATA _NULL_;
       file print;
       put //@2 74*"*";
-      put @2 "***   ERREUR : parmi les variables MAR1 Ã  MAR&nmax figurant dans"
+      put @2 "***   ERREUR : parmi les variables MAR1 à MAR&nmax figurant dans"
           @73 "***";
       put @2 "***            la table %upcase(&datamar)"              @73 "***";
-      put @2 "***            &marcar ne sont pas numÃ©riques"          @73 "***";
+      put @2 "***            &marcar ne sont pas numériques"          @73 "***";
       put @2 74*"*";
 
       PROC CONTENTS data=&DATAMAR;
@@ -630,11 +630,11 @@ DATA __MAR1;
   set __MAR1BIS;
   var=left(upcase(var));
   n=int(n)*(1-(n<0));
-  type="C";                               /*  variable catÃ©gorielle  */
-  if n=0 then type="N";                   /*  variable numÃ©rique     */
+  type="C";                               /*  variable catégorielle  */
+  if n=0 then type="N";                   /*  variable numérique     */
   tot=sum(of mar1-mar&nmax);
 
-   /*  Si les marges des variables catÃ©gorielles sont donnÃ©es en effectifs  */
+   /*  Si les marges des variables catégorielles sont données en effectifs  */
 
   %if %upcase(&pct) ne OUI %then
   %do;
@@ -651,7 +651,7 @@ DATA __MAR1;
     if type="N" then marg1=mar1;
   %end;
 
-   /*  Si les marges des variables catÃ©gorielles sont donnÃ©es en pourcentages */
+   /*  Si les marges des variables catégorielles sont données en pourcentages */
 
   %if %upcase(&pct)=OUI %then
   %do;
@@ -668,12 +668,12 @@ DATA __MAR1;
     if type="N" then marg1=mar1;
   %end;
 
-   /*  Si CONT vaut OUI, des controles sont effectuÃ©s  */
+   /*  Si CONT vaut OUI, des controles sont effectués  */
 
 %if %upcase(&cont)=OUI %then
 %do;
 
-  if type="C" then           /*  les variables MARn sont-elles renseignÃ©es ?  */
+  if type="C" then           /*  les variables MARn sont-elles renseignées ?  */
   do;
     array mar mar1-mar&nmax;
     %let erreur1=0;
@@ -702,10 +702,10 @@ DATA __MAR1;
     PROC PRINT data=__MAR1(where=(type="C"));
       id var;
       var n mar1-mar&nmax erreur;
-      title4 "ERREUR : pour au moins une variable catÃ©gorielle, les marges"
-             " MAR1 Ã  MARN,";
-      title5 " oÃ¹ N est le nombre de modalitÃ©s, ne sont pas"
-            " toutes renseignÃ©es";
+      title4 "ERREUR : pour au moins une variable catégorielle, les marges"
+             " MAR1 à MARN,";
+      title5 " où N est le nombre de modalités, ne sont pas"
+            " toutes renseignées";
     run;
   %end;
 
@@ -715,14 +715,14 @@ DATA __MAR1;
     PROC PRINT data=__MAR1(where=(type="N"));
       id var;
       var n mar1-mar&nmax erreur;
-      title4 "ERREUR : pour au moins une variable numÃ©rique, la marge"
-             " MAR1 n'est pas renseignÃ©e";
+      title4 "ERREUR : pour au moins une variable numérique, la marge"
+             " MAR1 n'est pas renseignée";
     run;
   %end;
 
   %if &erreur1=1 or &erreur3=1 %then %goto FIN;
 
-   /*  VÃ©rification sur les totaux des marges des variables catÃ©gorielles  */
+   /*  Vérification sur les totaux des marges des variables catégorielles  */
 
   PROC FREQ data=__MAR1(where=(type="C"));
     tables tot/out=__MAR11 noprint;
@@ -736,8 +736,8 @@ DATA __MAR1;
       id var;
       var n mar1-mar&nmax tot;
       label tot=TOT_MARG;
-      TITLE4  "ERREUR : les totaux des marges des variables catÃ©gorielles "
-            "ne sont pas tous Ã©gaux";
+      TITLE4  "ERREUR : les totaux des marges des variables catégorielles "
+            "ne sont pas tous égaux";
     run;
     %goto FIN;
   %end;
@@ -761,8 +761,8 @@ DATA __MAR1;
           id var;
           var n mar1-mar&nmax tot;
           label tot=TOT_MARG;
-          TITLE4  "ERREUR : les totaux des marges des variables catÃ©gorielles "
-                "ne sont pas Ã©gaux Ã  100";
+          TITLE4  "ERREUR : les totaux des marges des variables catégorielles "
+                "ne sont pas égaux à 100";
         run;
         %goto FIN;
       %end;
@@ -776,7 +776,7 @@ DATA __MAR1;
 
    /**********************************************************************
     ***  Construction de la table __MAR3 et des macros-variables       ***
-    ***  contenant les noms des variables et les nombres de modalitÃ©s  ***
+    ***  contenant les noms des variables et les nombres de modalités  ***
     **********************************************************************/
 
 PROC SORT data=__MAR1;                   /*  tri par type de variable  */
@@ -787,8 +787,8 @@ PROC FREQ data=__MAR1;
 
 DATA _NULL_;
   set __LEC1;
-  %let jj=0;          /*  jj est le nombre de variables catÃ©gorielles  */
-  %let ll=0;          /*  ll est le nombre de variables numÃ©riques     */
+  %let jj=0;          /*  jj est le nombre de variables catégorielles  */
+  %let ll=0;          /*  ll est le nombre de variables numériques     */
   if type="C" then call symput('jj',left(put(count,9.)));
   if type="N" then call symput('ll',left(put(count,9.)));
 run;
@@ -799,20 +799,20 @@ DATA _NULL_;
   if in1;
   retain k 0;
   k=k+1;
-/* Modification du 11/8/2006 pour accepter plus de 99 var. catÃ©gorielles      */
+/* Modification du 11/8/2006 pour accepter plus de 99 var. catégorielles      */
 /*j=put(k,2.);                                                                */
   j=put(k,3.);
   if k=1 then nn=n;
   else nn=n-1;
-  mac="vc"!!left(j); /* Les VCj contiendront les noms des var. catÃ©gorielles  */
-  mad="m"!!left(j);  /* Les Mj (resp.Nj) contiendront les nombres de modalitÃ©s*/
-  mae="n"!!left(j);  /*(resp. -1, sauf la 1Ã¨re) des variables catÃ©gorielles   */
+  mac="vc"!!left(j); /* Les VCj contiendront les noms des var. catégorielles  */
+  mad="m"!!left(j);  /* Les Mj (resp.Nj) contiendront les nombres de modalités*/
+  mae="n"!!left(j);  /*(resp. -1, sauf la 1ère) des variables catégorielles   */
   maf="t"!!left(j);  /* Les Tj valent 1 pour une var.num., 2 pour une var.car.*/
   call symput(mac,trim(var));
 
 /*****************************************************/
 /* Modification du 21/12/2006 pour prendre en compte */
-/* les variables ayant plus de 999 modalitÃ©s         */
+/* les variables ayant plus de 999 modalités         */
 /*****************************************************/
 /*call symput(mad,(left(put(n,3.))));                */
   call symput(mad,(left(put(n,4.))));
@@ -825,12 +825,12 @@ run;
 
 DATA _NULL_;
   set __MAR1(where=(type="N"));
-/* Modification du 11/8/2006 pour accepter plus de 99 var. numÃ©riques         */
+/* Modification du 11/8/2006 pour accepter plus de 99 var. numériques         */
 /*j=put(_n_,2.);                                                              */
-/* Modification du 10/9/2009 pour accepter plus de 999 var. numÃ©riques        */
+/* Modification du 10/9/2009 pour accepter plus de 999 var. numériques        */
 /*j=put(_n_,3.);                                                              */
   j=put(_n_,4.);
-  mac="vn"!!left(j);   /* Les VNj contiendront les noms des var. numÃ©riques   */
+  mac="vn"!!left(j);   /* Les VNj contiendront les noms des var. numériques   */
   call symput(mac,trim(var));
 RUN;
 
@@ -846,8 +846,8 @@ PROC TRANSPOSE data=__MAR1 out=__MAR31;
 DATA __MAR3;
   merge __MAR30(rename=(col1=marge)) __MAR31(rename=(col1=pctmarge));
 
-  /*  Calcul de la taille de la taille de la population en prÃ©sence
-      de variables catÃ©gorielles                                     */
+  /*  Calcul de la taille de la taille de la population en présence
+      de variables catégorielles                                     */
 
 %if &vc1 ne and %upcase(&pct) ne OUI %then
 %do;
@@ -859,8 +859,8 @@ DATA __MAR3;
 
 %end;
 
-  /*  Calcul de la taille de l'Ã©chantillon si la variable de
-      pondÃ©ration initiale &POIDS est manquante                */
+  /*  Calcul de la taille de l'échantillon si la variable de
+      pondération initiale &POIDS est manquante                */
 
 %let pondgen=0;
 
@@ -892,9 +892,9 @@ DATA __MAR3;
       file print;
       put //@2 74*"*";
       put @2 "***   ERREUR : la table %upcase(&DATA)" @73 "***";
-      put @2 "***            spÃ©cifiÃ©e dans le paramÃ¨tre DATA a 0 observation"
+      put @2 "***            spécifiée dans le paramètre DATA a 0 observation"
           @73 "***";
-      put @2 "***            non Ã©liminÃ©e" @73 "***";
+      put @2 "***            non éliminée" @73 "***";
       put @2 74*"*";
     %goto FIN;
   %end;
@@ -903,7 +903,7 @@ DATA __MAR3;
 
 %end;
 
-   /*  Un nouveau controle ... sur le paramÃ¨tre POIDS cette fois-ci  */
+   /*  Un nouveau controle ... sur le paramètre POIDS cette fois-ci  */
 
 %if %upcase(&cont)=OUI %then
 %do;
@@ -912,15 +912,15 @@ DATA __MAR3;
   DATA _NULL_;
     file print;
    put //@2 "*****************************************************************";
-    put @2 "***   ERREUR : le paramÃ¨tre POIDS n'est pas renseignÃ© alors   ***";
-    put @2 "***            qu'il n'y a pas de variable catÃ©gorielle       ***";
+    put @2 "***   ERREUR : le paramètre POIDS n'est pas renseigné alors   ***";
+    put @2 "***            qu'il n'y a pas de variable catégorielle       ***";
     put @2 "*****************************************************************";
     %goto FIN;
   %end;
 %end;
 
    /**************************************************
-    ***  CrÃ©ation de la table de travail __CALAGE  ***
+    ***  Création de la table de travail __CALAGE  ***
     ***  et de la table __PHI                      ***
     **************************************************/
 
@@ -961,20 +961,20 @@ DATA __CALAGE
     %end;
   end;
 
- /*  CrÃ©ation de variables disjonctives Ã  partir des variables catÃ©gorielles  */
+ /*  Création de variables disjonctives à partir des variables catégorielles  */
 
   %do j=1 %to &jj;
-    %if &&t&j=1 %then                    /* cas de variables numÃ©riques-SAS  */
+    %if &&t&j=1 %then                    /* cas de variables numériques-SAS  */
       %do i=1 %to &&m&j;
         y&j._&i=(&&vc&j=&i);
       %end;
-    %if &&t&j=2 %then                    /* cas de variables caractÃ¨res-SAS  */
+    %if &&t&j=2 %then                    /* cas de variables caractères-SAS  */
       %do;
-        %if &&m&j<10 %then                    /*  moins de 10 modalitÃ©s  */
+        %if &&m&j<10 %then                    /*  moins de 10 modalités  */
         %do i=1 %to &&m&j;
           y&j._&i=(&&vc&j="&i");
         %end;
-        %else %if &&m&j<100 %then             /*  de 10 Ã  99 modalitÃ©s  */
+        %else %if &&m&j<100 %then             /*  de 10 à 99 modalités  */
         %do;
           %do i=1 %to 9;
             y&j._&i=(&&vc&j="0&i");
@@ -983,7 +983,7 @@ DATA __CALAGE
             y&j._&i=(&&vc&j="&i");
           %end;
         %end;
-        %else %if &&m&j<1000 %then            /*  de 100 Ã  999 modalitÃ©s  */
+        %else %if &&m&j<1000 %then            /*  de 100 à 999 modalités  */
         %do;
           %do i=1 %to 9;
             y&j._&i=(&&vc&j="00&i");
@@ -997,9 +997,9 @@ DATA __CALAGE
         %end;
 		/*****************************************************/
 		/* Modification du 21/12/2006 pour prendre en compte */
-		/* les variables ayant plus de 999 modalitÃ©s         */
+		/* les variables ayant plus de 999 modalités         */
 		/*****************************************************/
-		%else          						  /*  de 1000 Ã  9999 modalitÃ©s  */
+		%else          						  /*  de 1000 à 9999 modalités  */
         %do;
           %do i=1 %to 9;
             y&j._&i=(&&vc&j="000&i");
@@ -1019,7 +1019,7 @@ DATA __CALAGE
 output __CALAGE;
 run;
 
-   /*   Calcul de l'effectif (non pondÃ©rÃ©) de l'Ã©chantillon)   */
+   /*   Calcul de l'effectif (non pondéré) de l'échantillon)   */
 
 %nobs(__calage,effinit)
 
@@ -1029,20 +1029,20 @@ run;
     file print;
     put //@2 74*"*";
     put @2 "***   ERREUR : la table %upcase(&DATA)" @73 "***";
-    put @2 "***            spÃ©cifiÃ©e dans le paramÃ¨tre DATA a 0 observation"
+    put @2 "***            spécifiée dans le paramètre DATA a 0 observation"
         @73 "***";
     put @2 74*"*";
   %goto FIN;
 %end;
 
-   /*   Calcul des nombres d'observations Ã©liminÃ©es et conservÃ©es   */
+   /*   Calcul des nombres d'observations éliminées et conservées   */
 
-%if &pondgen=1 %then       /*  Nombre d'observations conservÃ©es dÃ©jÃ  calculÃ©  */
+%if &pondgen=1 %then       /*  Nombre d'observations conservées déjà calculé  */
 %do;
   %let effelim=%eval(&effinit-&effech);
 %end;
 
-%else %do;                  /*  Nombre d'observations conservÃ©es non calculÃ©  */
+%else %do;                  /*  Nombre d'observations conservées non calculé  */
 
   PROC MEANS data=__CALAGE noprint;
     var elim;
@@ -1061,17 +1061,17 @@ run;
       file print;
       put //@2 74*"*";
       put @2 "***   ERREUR : la table %upcase(&DATA)" @73 "***";
-      put @2 "***            spÃ©cifiÃ©e dans le paramÃ¨tre DATA a &effinit"
+      put @2 "***            spécifiée dans le paramètre DATA a &effinit"
              " observations..." @73 "***";
-      put @2 "***            mais elles sont toutes Ã©liminÃ©es !" @73 "***";
+      put @2 "***            mais elles sont toutes éliminées !" @73 "***";
       put @2 "***" @73 "***";
-      put @2 "***   Une observation de la table en entrÃ©e est Ã©liminÃ©e dÃ¨s que"
+      put @2 "***   Une observation de la table en entrée est éliminée dès que"
           " :" @73 "***";
       put @2 "***   - elle a une valeur manquante sur l'une des variables du"
           " calage" @73 "***";
-      put @2 "***   - elle a une valeur manquante, nÃ©gative ou nulle sur l'une"
+      put @2 "***   - elle a une valeur manquante, négative ou nulle sur l'une"
           @73 "***";
-      put @2 "***     des variables de pondÃ©ration." @73 "***";
+      put @2 "***     des variables de pondération." @73 "***";
       put @2 74*"*";
     %goto FIN;
   %end;
@@ -1086,7 +1086,7 @@ PROC MEANS data=__CALAGE(where=(elim=0)) noprint;
   output out=__PHI sum=;
 
    /***********************************************************
-    ***  Impression des marges (population et Ã©chantillon)  ***
+    ***  Impression des marges (population et échantillon)  ***
     ***********************************************************/
 
 PROC TRANSPOSE data=__PHI OUT=__PHI2;
@@ -1146,7 +1146,7 @@ DATA __MAR4;
   end;
 run;
 
-   /*  Controle sur les effectifs des modalitÃ©s des variables catÃ©gorielles   */
+   /*  Controle sur les effectifs des modalités des variables catégorielles   */
 
 %if %upcase(&cont)=OUI and &vc1 ne %then
 %do;
@@ -1181,16 +1181,16 @@ run;
     PROC PRINT data=__VERIF SPLIT="*";
       id var;
       label var="Variable"
-            modalite="ModalitÃ©"
-            echant="Marge*Ã©chantillon"
-            pctech="Pourcentage*Ã©chantillon"
-            total2="Effectif*cumulÃ©"
-            effpond2="Effectif*Ã©chantillon"
+            modalite="Modalité"
+            echant="Marge*échantillon"
+            pctech="Pourcentage*échantillon"
+            total2="Effectif*cumulé"
+            effpond2="Effectif*échantillon"
             erreur="Erreur";
       var modalite echant pctech total2 effpond2 erreur;
-      title4  "ERREUR : pour au moins une variable catÃ©gorielle, l'effectif"
-              " cumulÃ© (pondÃ©rÃ©) des modalitÃ©s n'est pas Ã©gal";
-      title5  "Ã  l'effectif (pondÃ©rÃ©) de l'Ã©chantillon";
+      title4  "ERREUR : pour au moins une variable catégorielle, l'effectif"
+              " cumulé (pondéré) des modalités n'est pas égal";
+      title5  "à l'effectif (pondéré) de l'échantillon";
 
     DATA __FREQ;
       set __VERIF (where=(erreur="*")  keep=var erreur numero);
@@ -1204,7 +1204,7 @@ run;
     tables %do k=1 %to &nbver; &&&&vc&&num&k %end;
     %str(;);
     weight &poids;
-    title4 "Les effectifs (pondÃ©rÃ©s) des modalitÃ©s des variables catÃ©gorielles"
+    title4 "Les effectifs (pondérés) des modalités des variables catégorielles"
            " en erreur";
     run;
     title4;
@@ -1219,9 +1219,9 @@ PROC PRINT data=__MAR4 SPLIT="*";
   by var1 notsorted;
   id var1;
   label var1="Variable"
-        modalite="ModalitÃ©*ou variable"
-        echant="Marge*Ã©chantillon"
-        pctech="Pourcentage*Ã©chantillon"
+        modalite="Modalité*ou variable"
+        echant="Marge*échantillon"
+        pctech="Pourcentage*échantillon"
         marge="Marge*population"
         pctmarge="Pourcentage*population"
         err="Effectif*nul";
@@ -1229,13 +1229,13 @@ PROC PRINT data=__MAR4 SPLIT="*";
   %if &pb1=1 %then %do; err %end;
   %str(;);
   format pctech pctmarge 6.2;
-  title4  "Comparaison entre les marges tirÃ©es de l'Ã©chantillon (avec la"
-          " pondÃ©ration initiale)";
+  title4  "Comparaison entre les marges tirées de l'échantillon (avec la"
+          " pondération initiale)";
   title5  "et les marges dans la population (marges du calage)";
   %if &pb1=1 %then
   %do;
-    title6 "ERREUR : l'effectif d'une modalitÃ© (au moins) d'une variable"
-           " catÃ©gorielle est nul";
+    title6 "ERREUR : l'effectif d'une modalité (au moins) d'une variable"
+           " catégorielle est nul";
     title7 "alors que la marge correspondante est non nulle : le calage est "
            "impossible";
   %end;
@@ -1247,7 +1247,7 @@ title4;
 
 
    /***************************************************************
-    **** CrÃ©ation de la table  __COEFF et des macros variables  ***
+    **** Création de la table  __COEFF et des macros variables  ***
     ***  contenant les coefficients du vecteur lambda
     ***************************************************************/
 
@@ -1273,10 +1273,10 @@ run;
 
    /*  Titre 3  */
 
- %if &m=1 %then %do; title3 "MÃ©thode : linÃ©aire " %str(;); %end;
- %if &m=2 %then %do; title3 "MÃ©thode : raking ratio" %str(;); %end;
- %if &m=3 %then %do; title3 "MÃ©thode : logit, inf=&lo, sup=&up" %str(;); %end;
- %if &m=4 %then %do; title3 "MÃ©thode : linÃ©aire tronquÃ©e, inf=&lo, sup=&up"
+ %if &m=1 %then %do; title3 "Méthode : linéaire " %str(;); %end;
+ %if &m=2 %then %do; title3 "Méthode : raking ratio" %str(;); %end;
+ %if &m=3 %then %do; title3 "Méthode : logit, inf=&lo, sup=&up" %str(;); %end;
+ %if &m=4 %then %do; title3 "Méthode : linéaire tronquée, inf=&lo, sup=&up"
  %str(;); %end;
 run;
 
@@ -1294,7 +1294,7 @@ run;
   DATA _NULL_;
     file print;
     put //@10 "*************************************************************";
-    put   @10 "***   Le nombre maximum d'itÃ©rations (&maxiter) a Ã©tÃ© atteint"
+    put   @10 "***   Le nombre maximum d'itérations (&maxiter) a été atteint"
           @68 "***";
     put   @10 "***   sans qu'il y ait convergence                        ***";
     put   @10 "*************************************************************";
@@ -1351,7 +1351,7 @@ run;
 %if &syserr ne 0 %then                /*   Cas de "Floating Point Overflow"   */
 %do;
   %put ********************************************************************;
-  %put ***   Le calage ne peut etre rÃ©alisÃ©. Pour rendre le calage      ***;
+  %put ***   Le calage ne peut etre réalisé. Pour rendre le calage      ***;
   %put ***   possible, vous pouvez :                                    ***;
   %put ***                                                              ***;
   %if &m=3 or &m=4 %then
@@ -1361,17 +1361,17 @@ run;
   %end;
   %if &m=2 or &m=3 or &m=4 %then
   %do;
-  %put ***   - utiliser la mÃ©thode linÃ©aire (M=1)                       ***;
+  %put ***   - utiliser la méthode linéaire (M=1)                       ***;
   %end;
   %if &vc1 ne %then
   %do;
-  %put ***   - opÃ©rer des regroupements de modalitÃ©s de variables       ***;
-  %put ***     catÃ©gorielles                                            ***;
+  %put ***   - opérer des regroupements de modalités de variables       ***;
+  %put ***     catégorielles                                            ***;
     %if &effpond ne &effpop %then
     %do;
-  %put ***   - changer la variable de pondÃ©ration initiale, car         ***;
+  %put ***   - changer la variable de pondération initiale, car         ***;
 
-  %put ***     l'effectif pondÃ©rÃ© de l' Ã©chantillon vaut &effpond ;
+  %put ***     l'effectif pondéré de l' échantillon vaut &effpond ;
   %put ***     alors que l effectif de la population vaut &effpop ;
 
     %end;
@@ -1435,12 +1435,12 @@ PROC IML;
   inverse=inv(phiprim);
   free phiprim;
 
-  if ncol(inverse)=0 then            /*  Cas oÃ¹ PHIPRIM n'est pas inversible  */
+  if ncol(inverse)=0 then            /*  Cas où PHIPRIM n'est pas inversible  */
   do;
     call symput('pbiml','1');
   end;
 
-  else                               /*  Cas oÃ¹ PHIPRIM est inversible  */
+  else                               /*  Cas où PHIPRIM est inversible  */
   do;
 
   use __PHI;                                 /*  On construit le vecteur PHI  */
@@ -1467,18 +1467,18 @@ PROC IML;
     ***  ... on sort d'IML  ***
     ***************************/
 
-   /*   Cas oÃ¹ PHIPRIM n'est pas inversible : l'algorithme s'arrete   */
+   /*   Cas où PHIPRIM n'est pas inversible : l'algorithme s'arrete   */
 
-%if &pbiml=1 and &niter=1 %then              /*  Si c'est la 1Ã¨re itÃ©ration   */
+%if &pbiml=1 and &niter=1 %then              /*  Si c'est la 1ère itération   */
 %do;
   DATA _NULL_;
     file print;
     put //@10 "******************************************************";
-    put   @10 "***   Les variables analysÃ©es sont colinÃ©aires :   ***";
-    put   @10 "***   le calage ne peut etre rÃ©alisÃ©               ***";
+    put   @10 "***   Les variables analysées sont colinéaires :   ***";
+    put   @10 "***   le calage ne peut etre réalisé               ***";
     put   @10 "******************************************************";
 
-                                      /*   Recherche des liaisons linÃ©aires   */
+                                      /*   Recherche des liaisons linéaires   */
 
   PROC PRINCOMP data=__CALAGE(where=(elim=0)) cov noint noprint outstat=__VECP1;
     var %do j=1 %to &jj; %do i=1 %to &&n&j; y&j._&i %end; %end;
@@ -1504,21 +1504,21 @@ PROC IML;
     var %do j=1 %to &jj; %do i=1 %to &&n&j; y&j._&i %end; %end;
         %do l=1 %to &ll; &&vn&l %end; ;
     label %do j=1 %to &jj; %do i=1 %to &&n&j; y&j._&i=&&vc&j &i %end; %end;;
-    title3 "Coefficients de la (ou des) combinaison(s) linÃ©aire(s)"
+    title3 "Coefficients de la (ou des) combinaison(s) linéaire(s)"
            " nulle des variables du calage";
-    title4 "(une variable de nom WXY 2 dÃ©signe la variables indicatrice"
-           " associÃ©e Ã  la modalitÃ© 2 de la variable catÃ©gorielle WXY)";
+    title4 "(une variable de nom WXY 2 désigne la variables indicatrice"
+           " associée à la modalité 2 de la variable catégorielle WXY)";
     run;
 
     %goto FIN;
 %end;
 
-%if &pbiml=1 and &niter>1 %then       /*  Si ce n'est pas la 1Ã¨re itÃ©ration   */
+%if &pbiml=1 and &niter>1 %then       /*  Si ce n'est pas la 1ère itération   */
 %do;
   DATA _NULL_;
     file print;
  put //@5 "*******************************************************************";
- put @5   "***   Le calage ne peut etre rÃ©alisÃ©. Pour rendre le calage     ***";
+ put @5   "***   Le calage ne peut etre réalisé. Pour rendre le calage     ***";
  put @5   "***   possible, vous pouvez :                                   ***";
  put @5   "***                                                             ***";
  %if &m=3 or &m=4 %then
@@ -1528,16 +1528,16 @@ PROC IML;
  %end;
  %if &m=2 or &m=3 or &m=4 %then
  %do;
- put @5   "***   - utiliser la mÃ©thode linÃ©aire (M=1)                      ***";
+ put @5   "***   - utiliser la méthode linéaire (M=1)                      ***";
  %end;
  %if &vc1 ne %then
  %do;
- put @5   "***   - opÃ©rer des regroupements de modalitÃ©s de variables      ***";
- put @5   "***     catÃ©gorielles                                           ***";
+ put @5   "***   - opérer des regroupements de modalités de variables      ***";
+ put @5   "***     catégorielles                                           ***";
  %if &effpond ne &effpop %then
  %do;
- put @5   "***   - changer la variable de pondÃ©ration initiale, car        ***";
- put @5   "***     l'effectif pondÃ©rÃ© de l'Ã©chantillon vaut &effpond" @69 "***";
+ put @5   "***   - changer la variable de pondération initiale, car        ***";
+ put @5   "***     l'effectif pondéré de l'échantillon vaut &effpond" @69 "***";
  put @5   "***     alors que l'effectif de la population vaut &effpop"
      @69  "***";
  %end;
@@ -1547,7 +1547,7 @@ PROC IML;
     %goto ARRET;
 %end;
 
-   /*  Construction de la table contenant les rÃ©capitulatifs des itÃ©rations  */
+   /*  Construction de la table contenant les récapitulatifs des itérations  */
 
 %if &niter=1 %then
 %do;
@@ -1568,7 +1568,7 @@ DATA _NULL_;
 run;
 
    /******************************************
-    ***  Mise Ã  jour de la table __CALAGE  ***
+    ***  Mise à jour de la table __CALAGE  ***
     ******************************************/
 
 DATA __CALAGE;
@@ -1620,7 +1620,7 @@ DATA __CALAGE;
   dif=abs(_finit_-_f_);
   poineg=(__wfin<0);
 
-   /*  Cas oÃ¹ il peut exister des poids nÃ©gatifs  */
+   /*  Cas où il peut exister des poids négatifs  */
 
 %if &m=1 or (&m=3 and %index(&lo,-) ne 0) or (&m=4 and %index(&lo,-) ne 0) %then
 %do;
@@ -1639,7 +1639,7 @@ DATA __CALAGE;
   end;
 %end;
 
-   /*  Calcul du critÃ¨re d'arret  */
+   /*  Calcul du critère d'arret  */
 
 PROC MEANS data=__CALAGE noprint;
   var dif poineg;
@@ -1663,7 +1663,7 @@ run;
 DATA _NULL_;
   file log;
   put /@10 "***************************************************************";
-  put  @10 "***   Valeur du critÃ¨re d'arrÃªt Ã  l'itÃ©ration &NITER : &maxdif"
+  put  @10 "***   Valeur du critère d'arrêt à l'itération &NITER : &maxdif"
        @70 "***";
   put  @10 "***************************************************************";
   put /;
@@ -1674,7 +1674,7 @@ and &poineg=1 %then
   DATA _NULL_;
     file print;
  put //@5 "*******************************************************************";
- put @5   "***   Le calage ne peut etre rÃ©alisÃ©. Pour rendre le calage     ***";
+ put @5   "***   Le calage ne peut etre réalisé. Pour rendre le calage     ***";
  put @5   "***   possible, vous pouvez :                                   ***";
  put @5   "***                                                             ***";
  %if &m=3 or &m=4 %then
@@ -1684,16 +1684,16 @@ and &poineg=1 %then
  %end;
  %if &m=2 or &m=3 or &m=4 %then
  %do;
- put @5   "***   - utiliser la mÃ©thode linÃ©aire (M=1)                      ***";
+ put @5   "***   - utiliser la méthode linéaire (M=1)                      ***";
  %end;
  %if &vc1 ne %then
  %do;
- put @5   "***   - opÃ©rer des regroupements de modalitÃ©s de variables      ***";
- put @5   "***     catÃ©gorielles                                           ***";
+ put @5   "***   - opérer des regroupements de modalités de variables      ***";
+ put @5   "***     catégorielles                                           ***";
  %if &effpond ne &effpop %then
  %do;
- put @5   "***   - changer la variable de pondÃ©ration initiale, car        ***";
- put @5   "***     l'effectif pondÃ©rÃ© de l'Ã©chantillon vaut &effpond" @69 "***";
+ put @5   "***   - changer la variable de pondération initiale, car        ***";
+ put @5   "***     l'effectif pondéré de l'échantillon vaut &effpond" @69 "***";
  put @5   "***     alors que l'effectif de la population vaut &effpop"
      @69  "***";
  %end;
@@ -1712,17 +1712,17 @@ and &poineg=1 %then
 
 
    /**********************
-    ***  Les Ã©ditions  ***
+    ***  Les éditions  ***
     **********************/
 
 %ARRET : ;
 
-   /*  Tableaux rÃ©capitulatifs de l'algorithme  */
+   /*  Tableaux récapitulatifs de l'algorithme  */
 
 DATA __RECAP1;
   set __RECAP1 end=fin;
   iter=_n_;
-  %if &poineg=1 %then           /*  RÃ©cupÃ©ration du nombre de poids nÃ©gatifs  */
+  %if &poineg=1 %then           /*  Récupération du nombre de poids négatifs  */
   %do;
     if fin then
     do;
@@ -1733,12 +1733,12 @@ DATA __RECAP1;
 PROC PRINT data=__RECAP1 split="*";
  id iter;
  var test poidsneg;
- label test="CritÃ¨re*d'arrÃªt"
-       poidsneg="Poids*nÃ©gatifs"
-       iter="ItÃ©ration";
- title4 "Premier tableau rÃ©capitulatif de l'algorithme :";
- title5 "la valeur du critÃ¨re d'arrÃªt et le nombre de poids nÃ©gatifs"
-         " aprÃ¨s chaque itÃ©ration";
+ label test="Critère*d'arrêt"
+       poidsneg="Poids*négatifs"
+       iter="Itération";
+ title4 "Premier tableau récapitulatif de l'algorithme :";
+ title5 "la valeur du critère d'arrêt et le nombre de poids négatifs"
+         " après chaque itération";
 
 DATA __RECAP2;
   set __RECAP2;
@@ -1761,10 +1761,10 @@ DATA __RECAP2;
 PROC PRINT label data=__RECAP2;
    id var;
    label var="Variable"
-         modalite="ModalitÃ©";
-   title4 "DeuxiÃ¨me tableau rÃ©capitulatif de l'algorithme :";
+         modalite="Modalité";
+   title4 "Deuxième tableau récapitulatif de l'algorithme :";
    title5 "les coefficients du vecteur lambda de multiplicateurs de Lagrange"
-          " aprÃ¨s chaque itÃ©ration";
+          " après chaque itération";
 run;
 title4;
 
@@ -1825,8 +1825,8 @@ run;
   DATA _NULL_;
     file print;
     put //@10 "***************************************************************";
-    put   @10 "***   ATTENTION : l'algorithme a convergÃ©, mais le calage   ***";
-    put   @10 "***               n'est pas parfaitement rÃ©alisÃ©            ***";
+    put   @10 "***   ATTENTION : l'algorithme a convergé, mais le calage   ***";
+    put   @10 "***               n'est pas parfaitement réalisé            ***";
     put   @10 "***************************************************************";
 %end;
 
@@ -1834,9 +1834,9 @@ PROC PRINT data=__MAR5 split="*";
   by var1 notsorted;
   id var1;
   label var1="Variable"
-        modalite="ModalitÃ©*ou variable"
-        echant="Marge*Ã©chantillon"
-        pctech="Pourcentage*Ã©chantillon"
+        modalite="Modalité*ou variable"
+        echant="Marge*échantillon"
+        pctech="Pourcentage*échantillon"
         marge="Marge*population"
         erreur="Erreur"
         pctmarge="Pourcentage*population";
@@ -1844,12 +1844,12 @@ PROC PRINT data=__MAR5 split="*";
   %if &pb=1 %then %do; erreur %end;
   %str(;);
   format pctech pctmarge 6.2;
-  title4  "Comparaison entre les marges finales dans l'Ã©chantillon"
-          " (avec la pondÃ©ration finale)";
+  title4  "Comparaison entre les marges finales dans l'échantillon"
+          " (avec la pondération finale)";
   title5 " et les marges dans la population (marges du calage)";
 run;
 
-   /*  S'il y a des poids nÃ©gatifs, la variable __WFIN doit etre rÃ©tablie  */
+   /*  S'il y a des poids négatifs, la variable __WFIN doit etre rétablie  */
 
 %if &poineg=1 %then
 %do;
@@ -1870,7 +1870,7 @@ run;
     %str(;);
     var  _f_;
     output out=__SOR mean=;
-    title4 "Rapports de poids (pondÃ©rations finales / pondÃ©rations initiales)";
+    title4 "Rapports de poids (pondérations finales / pondérations initiales)";
     title5 "pour chaque combinaison de valeurs des variables";
 
   PROC PRINT data=__SOR(drop=_type_) split="+";
@@ -1887,14 +1887,14 @@ run;
   PROC UNIVARIATE plot normal data=__CALAGE;
     var  _f_  __wfin;
     label _f_    = "Rapport de poids"
-          __wfin = "PondÃ©ration finale";
+          __wfin = "Pondération finale";
     %if &ident ne %then
     %do;
       id &ident;
     %end;
     title4 "Statistiques sur les rapports de poids"
-    " (= pondÃ©rations finales / pondÃ©rations initiales)";
-    title5 "et sur les pondÃ©rations finales";
+    " (= pondérations finales / pondérations initiales)";
+    title5 "et sur les pondérations finales";
   run;
 %end;
 
@@ -1926,7 +1926,7 @@ run;
   run;
 
   %if &existe=oui and %upcase(&misajour)=OUI %then   /*   La table existe     */
-  %do;                                               /*  et est mise Ã  jour   */
+  %do;                                               /*  et est mise à jour   */
     DATA &DATAPOI;
       merge &DATAPOI  __CALAGE(keep=__wfin &ident rename=(__wfin=&poidsfin));
       label &poidsfin="&labelpoi ";
@@ -1934,7 +1934,7 @@ run;
 
   %if &existe=non or (&existe=oui and %upcase(&misajour)=NON)
   %then                                    /*       La table n'existe pas     */
-  %do;                                     /*  ou elle n'est pas mise Ã  jour  */
+  %do;                                     /*  ou elle n'est pas mise à jour  */
     DATA &DATAPOI;
     set __CALAGE(keep=__wfin &ident rename=(__wfin=&poidsfin));
     label &poidsfin="&labelpoi ";
@@ -1944,7 +1944,7 @@ run;
   %do;
     PROC CONTENTS data=&DATAPOI;
       title4 "Contenu de la table &datapoi contenant la nouvelle"
-             " pondÃ©ration &poidsfin";
+             " pondération &poidsfin";
   %end;
   run;
 %end;
@@ -1953,7 +1953,7 @@ run;
      ***   Edition du bilan du calage   ***
      **************************************/
 
-     /*   Pour avoir la date en franÃ§ais (ou en canadien franÃ§ais) ...   */
+     /*   Pour avoir la date en français (ou en canadien français) ...   */
 
 %let num  = %substr(&sysdate,1,2);
 %let mois = %substr(&sysdate,3,3);
@@ -1985,87 +1985,87 @@ DATA _NULL_;
 ****************************** FIN MODIF ******************************;
 
   put @2 "*";
-  put @2 "*   Table en entrÃ©e : %upcase(&data)";
+  put @2 "*   Table en entrée : %upcase(&data)";
   put @2 "*";
-  put @2 "*   Nombre d'observations dans la table en entrÃ©e  : &effinit";
-  put @2 "*   Nombre d'observations Ã©liminÃ©es                : &effelim";
-  put @2 "*   Nombre d'observations conservÃ©es               : &effech";
+  put @2 "*   Nombre d'observations dans la table en entrée  : &effinit";
+  put @2 "*   Nombre d'observations éliminées                : &effelim";
+  put @2 "*   Nombre d'observations conservées               : &effech";
   put @2 "*";
   %if &pondgen=0 %then
   %do;
-    put @2 "*   Variable de pondÃ©ration : %upcase(&poids)";
+    put @2 "*   Variable de pondération : %upcase(&poids)";
   %end;
   %else
   %do;
-    put @2 "*   Variable de pondÃ©ration : taille de la population (&effpop)"
-           " / nombre d'observations (&effech) (gÃ©nÃ©rÃ©e)";
+    put @2 "*   Variable de pondération : taille de la population (&effpop)"
+           " / nombre d'observations (&effech) (générée)";
   %end;
   %if &pondqk ne __UN and &pondqk ne %then %do;
-    put @2 "*   Variable de pondÃ©ration Qk : %upcase(&pondqk)";
+    put @2 "*   Variable de pondération Qk : %upcase(&pondqk)";
   %end;
   put @2 "*";
   %if &jj>0 %then
   %do;
-    put @2 "*   Nombre de variables catÃ©gorielles : &jj";
-    put @2 "*   Liste des variables catÃ©gorielles et de leurs nombres de"
-        " modalitÃ©s :";
+    put @2 "*   Nombre de variables catégorielles : &jj";
+    put @2 "*   Liste des variables catégorielles et de leurs nombres de"
+        " modalités :";
     put @8 %do j=1 %to &jj; "&&vc&j (&&m&j) " %end; @@;
-    put / @2 "*   Taille de l'Ã©chantillon (pondÃ©rÃ©) : &effpond";
+    put / @2 "*   Taille de l'échantillon (pondéré) : &effpond";
     put   @2 "*   Taille de la population           : &effpop";
   put @2 "*";
   %end;
   %if &ll>0 %then
   %do;
-    put @2 "*   Nombre de variables numÃ©riques : &ll";
-    put @2 "*   Liste des variables numÃ©riques :";
+    put @2 "*   Nombre de variables numériques : &ll";
+    put @2 "*   Liste des variables numériques :";
     put @8 %do l=1 %to &ll; "&&vn&l " %end; @@;
     put / @2 "*";
   %end;
-  put @2 "*   MÃ©thode utilisÃ©e : "
-        %if &m=1 %then %do; "linÃ©aire" %end;
+  put @2 "*   Méthode utilisée : "
+        %if &m=1 %then %do; "linéaire" %end;
   %else %if &m=2 %then %do; "raking ratio" %end;
-  %else %if &m=3 %then %do; "logit, borne infÃ©rieure = &lo,"
-                            " borne supÃ©rieure = &up" %end;
-  %else %if &m=4 %then %do; "linÃ©aire tronquÃ©e,  borne infÃ©rieure = &lo,"
-                            "  borne supÃ©rieure = &up" %end;
+  %else %if &m=3 %then %do; "logit, borne inférieure = &lo,"
+                            " borne supérieure = &up" %end;
+  %else %if &m=4 %then %do; "linéaire tronquée,  borne inférieure = &lo,"
+                            "  borne supérieure = &up" %end;
   %str(;);
 
-      /*   Si tout s'est bien passÃ©   */
+      /*   Si tout s'est bien passé   */
 
   %if &arret=0 %then
   %do;
     %if &pb=0 %then
     %do;
-      put @2 "*   Le calage a Ã©tÃ© rÃ©alisÃ© en &niter itÃ©rations";
+      put @2 "*   Le calage a été réalisé en &niter itérations";
     %end;
     %else
     %do;
-      put @2 "*   Le calage n'a pu etre rÃ©alisÃ© qu'approximativement"
-             " en &niter itÃ©rations";
+      put @2 "*   Le calage n'a pu etre réalisé qu'approximativement"
+             " en &niter itérations";
     %end;
     %if &poineg=1 %then
     %do;
-      put @2 "*   Il y a &npoineg poids nÃ©gatifs";
+      put @2 "*   Il y a &npoineg poids négatifs";
     %end;
     %if &poidsfin ne %then
     %do;
-      put @2 "*   Les poids ont Ã©tÃ© stockÃ©s dans la variable %upcase(&poidsfin)"
+      put @2 "*   Les poids ont été stockés dans la variable %upcase(&poidsfin)"
              " de la table %upcase(&datapoi)";
     %end;
   %end;
 
-      /*   Si tout ne s'est pas bien passÃ©   */
+      /*   Si tout ne s'est pas bien passé   */
 
   %else
   %do;
     %if &maxit=1 %then
     %do;
-      put @2 "*   Le nombre maximum d'itÃ©rations (&maxiter) a Ã©tÃ© atteint"
+      put @2 "*   Le nombre maximum d'itérations (&maxiter) a été atteint"
              " sans qu'il y ait convergence";
     %end;
     %else
     %do;
-      put @2 "*   Le calage n'a pu etre rÃ©alisÃ©";
+      put @2 "*   Le calage n'a pu etre réalisé";
     %end;
   %end;
 
