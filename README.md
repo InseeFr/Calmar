@@ -6,4 +6,17 @@ La macro SAS CALMAR (CALage sur MARges) permet de redresser un échantillon prov
 
 Cette méthode de redressement permet de réduire la variance d'échantillonnage, et, dans certains cas, de réduire le biais dû à la non réponse totale. 
 
-La macro SAS CALMAR est disponible sous forme compilée pour différentes versions de SAS sur le [site de l'Insee](https://www.insee.fr/fr/information/2021902).
+La macro SAS CALMAR est disponible sous forme compilée pour différentes versions de SAS sur le [site de l'Insee](https://www.insee.fr/fr/information/2021902), ainsi que sa [documentation](https://www.insee.fr/fr/statistiques/fichier/2021902/doccalmar.pdf) exposant succinctement les aspects théoriques du calage sur marges et détaillant sa mise en oeuvre pratique, avec des exemples.
+
+La compilation du code source mis à disposition ici s'effectue via les trois lignes de code suivantes :
+
+libname lib_calm 'Z:\Calmar';
+options mstored sasmstore=lib_calm;
+%include 'Z:\Calmar\Calmar.sas';
+
+où dans cet exemple, le code source de la macro (fichier Calmar.sas) est stocké dans le répertoire « Z:\Calmar », qui contiendra aussi la version compilée de la macro.
+
+Pour utiliser ensuite cette version compilée de la macro dans un autre programme, il suffit de l'appeler en début de ce programme via les deux lignes de codes suivantes :
+
+libname lib_calm 'Z:\Calmar';
+options mstored sasmstore=lib_calm;
