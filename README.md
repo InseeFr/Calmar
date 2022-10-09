@@ -11,7 +11,9 @@ La macro SAS CALMAR est disponible sous forme compilée pour différentes versio
 La compilation du code source mis à disposition ici s'effectue via les trois lignes de code suivantes :
 
 libname lib_calm 'Z:\Calmar';
+
 options mstored sasmstore=lib_calm;
+
 %include 'Z:\Calmar\Calmar.sas';
 
 où dans cet exemple, le code source de la macro (fichier Calmar.sas) est stocké dans le répertoire « Z:\Calmar », qui contiendra aussi la version compilée de la macro.
@@ -19,4 +21,5 @@ où dans cet exemple, le code source de la macro (fichier Calmar.sas) est stock�
 Pour utiliser ensuite cette version compilée de la macro dans un autre programme, il suffit de l'appeler en début de ce programme via les deux lignes de codes suivantes :
 
 libname lib_calm 'Z:\Calmar';
+
 options mstored sasmstore=lib_calm;
