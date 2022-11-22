@@ -10,7 +10,7 @@ Lorsque les variables servant au redressement sont toutes catégorielles, le red
 
 Cette méthode de redressement permet de réduire la variance d'échantillonnage, et, dans certains cas, de réduire le biais dû à la non réponse totale. 
 
-Les principaux contributeurs à l'élaboration de cette macro sont Jean-Claude Deville et Carl-Erik Särndal pour la théorie du calage sur marges, et Olivier Sautory pour le développement de la macro Calmar permettant sa mise en œuvre.
+Les principaux contributeurs à l'élaboration de cette macro sont Jean-Claude Deville et Carl-Erik Särndal pour la théorie du calage sur marges, et Olivier Sautory pour le développement de la macro CALMAR permettant sa mise en œuvre.
 
 La macro SAS CALMAR est disponible sous forme compilée pour différentes versions de SAS sur le [site de l'Insee](https://www.insee.fr/fr/information/2021902), ainsi que sa [documentation](https://www.insee.fr/fr/statistiques/fichier/2021902/doccalmar.pdf) exposant succinctement les aspects théoriques du calage sur marges et détaillant sa mise en oeuvre pratique, avec des exemples.
 
