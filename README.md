@@ -26,3 +26,5 @@ Pour utiliser ensuite cette version compilée de la macro dans un autre programm
 
     libname lib_calm 'Z:\Calmar';    
     options mstored sasmstore=lib_calm;   
+
+Note : la macro CALMAR utilise les modules SAS/STAT et SAS/IML du logiciel SAS.
