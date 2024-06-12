@@ -12,7 +12,7 @@ Cette méthode de redressement permet de réduire la variance d'échantillonnage
 
 Les principaux contributeurs à l'élaboration de cette macro sont Jean-Claude Deville et Carl-Erik Särndal pour la théorie du calage sur marges, et Olivier Sautory pour le développement de la macro CALMAR permettant sa mise en œuvre.
 
-La macro SAS CALMAR est disponible sous forme compilée pour différentes versions de SAS sur le [site de l'Insee](https://www.insee.fr/fr/information/2021902), ainsi que sa [documentation](https://www.insee.fr/fr/statistiques/fichier/2021902/doccalmar.pdf) exposant succinctement les aspects théoriques du calage sur marges et détaillant sa mise en oeuvre pratique, avec des exemples.
+La documentation (disponible ici en français et en anglais) expose succinctement les aspects théoriques du calage sur marges et détaille sa mise en oeuvre pratique, avec des exemples.
 
 La compilation du code source mis à disposition ici s'effectue via les trois lignes de code suivantes :
 
